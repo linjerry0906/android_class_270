@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         order.storeInfo = (String)spinner.getSelectedItem();
 
         orders.add(order);
-        
+
         setupListView();
 
         editText.setText("");
