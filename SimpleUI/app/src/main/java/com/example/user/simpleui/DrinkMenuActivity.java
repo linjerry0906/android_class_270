@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Adapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ public class DrinkMenuActivity extends AppCompatActivity {
     String[] names = {"冬瓜紅茶", "玫瑰鹽奶蓋紅茶", "珍珠紅茶拿鐵", "紅茶拿鐵"};
     int[] mPrices = {25, 35, 45, 35};
     int[] lPrices = {35, 45, 55, 45};
-    int[] imageId = {R.drawable.blackTea, R.drawable.greenTea, R.drawable.milkTea, R.drawable.coffee};
+    int[] imageId = {R.drawable.drink1, R.drawable.drink2, R.drawable.drink3, R.drawable.drink4};
 
     List<Drink> drinks = new ArrayList<>();
 
@@ -31,7 +32,16 @@ public class DrinkMenuActivity extends AppCompatActivity {
 
         totalTextView = (TextView)findViewById(R.id.totalTextView);
         drinkMenuListView = (ListView)findViewById(R.id.drinkMenuListView);
+
+        setupDrinkMenu();
     }
+
+    private void setupDrinkMenu()
+    {
+        DrinkAdapter drinkAdapter = new DrinkAdapter(this, drinks);
+        drinkMenuListView.setAdapter(drinkAdapter);
+    }
+
     public void setData()
     {
         for(int i = 0; i < names.length; i++)
