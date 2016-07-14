@@ -113,12 +113,13 @@ public class MainActivity extends AppCompatActivity {
         {
             if(resultCode == RESULT_OK)
             {
-                Toast.makeText(this, "完成菜單", Toast.LENGTH_SHORT);
+                Toast.makeText(this, "完成菜單", Toast.LENGTH_SHORT).show();
+
                 textView.setText(data.getStringExtra("results"));
             }
             else if(resultCode == RESULT_CANCELED)
             {
-                Toast.makeText(this, "取消菜單", Toast.LENGTH_SHORT);
+                Toast.makeText(this, "取消菜單", Toast.LENGTH_SHORT).show();
             }
         }
     }
