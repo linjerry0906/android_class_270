@@ -45,7 +45,8 @@
         android:id="@+id/button2"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/button3"
-        android:layout_toStartOf="@+id/button3" />
+        android:layout_toStartOf="@+id/button3"
+        android:onClick="done" />
 
     <Button
         android:layout_width="wrap_content"

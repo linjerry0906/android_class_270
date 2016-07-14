@@ -10,6 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,12 +81,28 @@ public class DrinkMenuActivity extends AppCompatActivity {
             drinks.add(drink);
         }
     }
+    public void done(View view)
+    {
+        Intent intent = new Intent();
 
-    public void cancel()
+        JSONArray jsonArray = new JSONArray();
+        for(Drink drink : orders)
+        {
+            JSONObject jsonObject = drink.getJsonObject();
+            jsonArray.put(jsonObject);
+        }
+        intent.putExtra("results", jsonArray.toString());
+
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    public void cancel(View view)
     {
         Intent intent = new Intent();
         intent.setClass(this, MainActivity.class);
-        startActivity(intent);
+        setResult(RESULT_CANCELED, intent);
+        finish();
     }
     @Override
     protected void onStart() {
