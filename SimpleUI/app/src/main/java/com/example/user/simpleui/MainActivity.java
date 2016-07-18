@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("setting", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        
+
         editText.setText(sharedPreferences.getString("editText", ""));
         editText.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -77,6 +77,16 @@ public class MainActivity extends AppCompatActivity {
                 selectedTea = radioButton.getText().toString();
             }
         });
+
+        String history = Utils.readFile(this, "history");
+        String[] datas = history.split("\n");
+        for(String data : datas)
+        {
+            Order order = Order.newInstanceWithData(data);
+            if(order != null)
+                orders.add(order);
+        }
+
         setupListView();
         setupSpinner();
 
@@ -103,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
         order.note = text;
         order.menuResults = menuResults;
         order.storeInfo = (String)spinner.getSelectedItem();
+
+
+        Utils.writeFile(this, "history", order.toData() + "\n");
 
         orders.add(order);
 
