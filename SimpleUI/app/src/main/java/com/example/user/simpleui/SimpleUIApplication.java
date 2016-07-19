@@ -17,6 +17,7 @@ public class SimpleUIApplication extends Application {
                 .applicationId("EPJzhi3svf0y6cicPg7LoFbIuPtDExwiTQvEZjes")
                 .server("https://parseapi.back4app.com/")
                 .clientKey("Eg65GB2uNgIVB7WbATNwaJwcHGiEQZXeNt7sb508")
+                .enableLocalDataStore()
                 .build());
     }
 }

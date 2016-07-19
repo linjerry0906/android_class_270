@@ -2,12 +2,15 @@ package com.example.user.simpleui;
 
 import com.parse.FindCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * Created by user on 2016/7/13.
@@ -106,9 +109,18 @@ public class Order extends ParseObject{
         return 0;
     }
 
-    public static void getOrdersFromRemote(FindCallback<Order> callback)
+    public static void getOrdersFromRemote(final FindCallback<Order> callback)
     {
-        getQuery().findInBackground(callback);
+        getQuery().findInBackground(new FindCallback<Order>() {
+            @Override
+            public void done(List<Order> objects, ParseException e) {
+                if(e == null)
+                {
+                    Order.pinAllInBackground("Order", objects);
+                }
+                callback.done(objects, e);
+            }
+        });
     }
 
     public static ParseQuery<Order> getQuery()
