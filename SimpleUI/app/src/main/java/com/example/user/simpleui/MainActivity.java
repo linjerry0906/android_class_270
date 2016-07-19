@@ -64,13 +64,13 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                editor.putLong("spinner", id);
+                editor.putInt("spinner", position);
                 editor.commit();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                //spinner.setSelection(sharedPreferences.getLong("spinner", ));
+
             }
         });
 
@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         String[] data = getResources().getStringArray(R.array.storeInfos);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, data);
         spinner.setAdapter(adapter);
+        spinner.setSelection(sharedPreferences.getInt("spinner", 0));
     }
     public void submit(View view)
     {
