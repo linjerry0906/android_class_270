@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -17,6 +18,10 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +60,20 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("setting", MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                editor.putLong("spinner", id);
+                editor.commit();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //spinner.setSelection(sharedPreferences.getLong("spinner", ));
+            }
+        });
+
         editText.setText(sharedPreferences.getString("editText", ""));
         editText.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -89,6 +108,19 @@ public class MainActivity extends AppCompatActivity {
 
         setupListView();
         setupSpinner();
+
+        ParseObject parseObject = new ParseObject("Test");
+        parseObject.put("foo", "bar");
+        parseObject.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null)
+                {
+                    Toast.makeText(MainActivity.this, "上傳成功", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
 
         Log.d("Debug", "MainActivity OnCreate");
     }
