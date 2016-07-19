@@ -62,8 +62,8 @@ public class OrderAdapter extends BaseAdapter {
             holder = (Holder)convertView.getTag();
         }
         Order order = orders.get(position);
-        holder.noteTextview.setText(order.note);
-        holder.storeInfoTextView.setText(order.storeInfo);
+        holder.noteTextview.setText(order.getNote());
+        holder.storeInfoTextView.setText(order.getStoreInfo());
         holder.drinkNameTextView.setText(String.valueOf(order.totalNumber()));
 
         return convertView;
