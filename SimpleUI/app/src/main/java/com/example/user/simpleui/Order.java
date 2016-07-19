@@ -118,7 +118,10 @@ public class Order extends ParseObject{
                 {
                     Order.pinAllInBackground("Order", objects);
                 }
-                callback.done(objects, e);
+                else
+                {
+                    Order.getQuery().fromLocalDatastore().findInBackground(callback);
+                }
             }
         });
     }
