@@ -13,6 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -42,10 +46,10 @@ public class DrinkMenuActivity extends AppCompatActivity implements DrinkOrderDi
         totalTextView = (TextView)findViewById(R.id.totalTextView);
         drinkMenuListView = (ListView)findViewById(R.id.drinkMenuListView);
 
-        setupDrinkMenu();
+        setupDrinkMenuListView();
     }
 
-    private void setupDrinkMenu()
+    private void setupDrinkMenuListView()
     {
         final DrinkAdapter drinkAdapter = new DrinkAdapter(this, drinks);
         drinkMenuListView.setAdapter(drinkAdapter);
@@ -101,15 +105,23 @@ public class DrinkMenuActivity extends AppCompatActivity implements DrinkOrderDi
 
     public void setData()
     {
-        for(int i = 0; i < names.length; i++)
-        {
-            Drink drink = new Drink();
-            drink.setName(names[i]);
-            drink.setmPrice(mPrices[i]);
-            drink.setlPrice(lPrices[i]);
-            drink.imageId = imageId[i];
-            drinks.add(drink);
-        }
+//        for(int i = 0; i < names.length; i++)
+//        {
+//            Drink drink = new Drink();
+//            drink.setName(names[i]);
+//            drink.setmPrice(mPrices[i]);
+//            drink.setlPrice(lPrices[i]);
+//            drink.imageId = imageId[i];
+//            drinks.add(drink);
+//        }
+        Drink.syncDrinksFromRemote(new FindCallback<Drink>() {
+            @Override
+            public void done(List<Drink> objects, ParseException e) {
+                drinks = objects;
+                setupDrinkMenuListView();
+            }
+        });
+
     }
     public void done(View view)
     {
@@ -188,4 +200,6 @@ public class DrinkMenuActivity extends AppCompatActivity implements DrinkOrderDi
 
         updateTotal();
     }
+
+
 }
