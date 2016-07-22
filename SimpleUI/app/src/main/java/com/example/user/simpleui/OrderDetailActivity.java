@@ -241,10 +241,10 @@ public class OrderDetailActivity extends AppCompatActivity implements  GeoCoding
                         LatLng point1 = points.get(i);
                         LatLng point2 = points.get(i + 1);
 
-                        Double maxLat = Math.max(point1.latitude, point2.latitude);
-                        Double minLat = Math.min(point1.latitude, point2.latitude);
-                        Double maxLng = Math.max(point1.longitude, point2.longitude);
-                        Double minLng = Math.min(point1.longitude, point2.longitude);
+                        Double maxLat = Math.max(point1.latitude, point2.latitude) + 0.00001;
+                        Double minLat = Math.min(point1.latitude, point2.latitude) - 0.00001;
+                        Double maxLng = Math.max(point1.longitude, point2.longitude) + 0.00001;
+                        Double minLng = Math.min(point1.longitude, point2.longitude) - 0.00001;
                         if(currentLatLng.latitude <= maxLat && currentLatLng.latitude >= minLat && currentLatLng.longitude <= maxLng && currentLatLng.longitude >= minLng)
                         {
                             index = i;
