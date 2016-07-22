@@ -173,7 +173,7 @@ public class OrderDetailActivity extends AppCompatActivity implements  GeoCoding
                         .travelMode(AbstractRouting.TravelMode.WALKING)
                         .waypoints(start, storeLocation)
                         .withListener(this)
-                        .alternativeRoutes(true)
+                        //.alternativeRoutes(true)
                         .build();
         routing.execute();
     }
@@ -221,7 +221,7 @@ public class OrderDetailActivity extends AppCompatActivity implements  GeoCoding
         if(marker == null)
         {
             MarkerOptions markerOptions = new MarkerOptions().position(currentLatLng).title("現在位置").snippet("Hello Google Map");
-            googleMap.addMarker(markerOptions);
+            marker = googleMap.addMarker(markerOptions);
         }
         else
         {
